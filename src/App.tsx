@@ -1,17 +1,18 @@
-import { Canvas, CanvasProps, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, GizmoHelper, GizmoViewport } from "@react-three/drei";
-import { ShaderComponent } from "./Shader";
-import { Airpods } from "./Airpods";
-import { Lighting } from "./Lighting";
-import { Effects } from "./Effects";
-import { Footer } from "./Footer";
-import { ResizeProvider, useResize } from "./ResizeProvider";
-import { useEffect, useRef } from "react";
+import { Airpods } from "./canvas/Airpods";
+import { Lighting } from "./canvas/Lighting";
+import { Effects } from "./canvas/Effects";
+import { Footer } from "./dom/Footer";
+import { ResizeProvider, useResize } from "./dom/ResizeProvider";
+import { useEffect } from "react";
 import { PerspectiveCamera } from "three";
-import { Controls } from "./Controls";
-import { FingerPrint } from "./FingerPrint";
+import { Controls } from "./dom/Controls";
+import { FingerPrint } from "./dom/FingerPrint";
 import { useFingerprintStore } from "./utils/store";
-import { ShaderAudioAnalyzer } from "./ShaderAudioAnalyzer";
+import { ShaderAudioAnalyzer } from "./canvas/ShaderAudioAnalyzer";
+import { NoiseMusicPlayer } from "./dom/NoiseMusicPlayer";
+import { useControls } from "leva";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <ResizeProvider>
         <Scene />
         <Controls />
+        <NoiseMusicPlayer url="/noise.mp3" />
         <Footer />
       </ResizeProvider>
     </div>
@@ -30,6 +32,8 @@ function App() {
 }
 
 const Scene = () => {
+
+  const { fingerprint } = useFingerprintStore();
 
   return (
     <Canvas 
@@ -41,18 +45,22 @@ const Scene = () => {
       <ambientLight intensity={1}/>
       <pointLight position={[3, 3, 3]}/>
       <directionalLight position={[-2, 3, 5]}/>
-      <OrbitControls/>
       <Airpods scale={0.1} position={[0, 0, -1]} />
       <Lighting />
       <Effects />
-      <ShaderAudioAnalyzer
-        rotation={[-Math.PI/2, 0, 0]}
-        scale={30}
-      />
-      <GizmoHelper alignment="top-right" margin={[75, 75]}>
-        <GizmoViewport labelColor="white" axisHeadScale={1} />
-      </GizmoHelper>
+      {fingerprint && 
+        <ShaderAudioAnalyzer
+          url="/encore-rust.mp3"
+          position={[
+            0,
+            0,
+            -2.5
+          ]}
+          rotation={[-Math.PI/2, 0, 0]}
+        />
+      }
       <Monitor />
+      {/* <Debug /> */}
     </Canvas>
   )
 }
@@ -72,5 +80,22 @@ const Monitor = () => {
 
   return <></>
 }
+
+const Debug = () => {
+  const { orbit, gizmo } = useControls({
+    orbit: false,
+    gizmo: false
+  });
+  return (
+    <>
+      {orbit && <OrbitControls/>}
+      {gizmo && 
+        <GizmoHelper alignment="top-left" margin={[75, 75]}>
+          <GizmoViewport labelColor="white" axisHeadScale={1} />
+        </GizmoHelper>
+      }
+    </>
+  )
+};
 
 export default App

@@ -1,6 +1,5 @@
 import { HiFingerPrint } from "react-icons/hi2";
-import { useFingerprintStore } from "./utils/store";
-import { useRef } from "react";
+import { useFingerprintStore } from "../utils/store";
 
 export const FingerPrint = () => {
 
@@ -11,7 +10,7 @@ export const FingerPrint = () => {
       <div className="w-full h-full justify-center items-center flex">
         <div className="text-center items-center">
           <div className="w-full text-center">
-            <span>
+            <span className="text-2xl">
               Tap to Play
             </span>
           </div>
