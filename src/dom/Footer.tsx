@@ -5,9 +5,14 @@ export const Footer = () => {
     <div className="absolute bottom-4 right-4">
       <p>
         <span className="pr-2 font-bold text-xl">
-          「アンコール」
+          「カナリアスキップ」
         </span>
-        Music by <a className="pr-3 text-gray-900" href="https://www.youtube.com/watch?v=qFeKKGDoF2E" target="_blank" rel="noreferrer">Ayase / YOASOBI ♪</a>
+        Music by <a 
+            className="pr-3 text-gray-900" href="https://dova-s.jp/bgm/play7330.html" 
+            target="_blank" rel="noreferrer"
+          >
+              まんぼう二等兵
+          </a>
       </p>
     </div>
   )

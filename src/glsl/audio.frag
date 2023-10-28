@@ -28,6 +28,9 @@ void main() {
     color2 = tex.rgb;
   }
 
+  // 調整
+  float power = 2.;
+
   // uDataLength分だけStep関数で色を変える
   float n = uDataLength;
   uv *= n;
@@ -35,13 +38,13 @@ void main() {
   uv = floor(uv) + smoothstep(thr, 2.0 - thr, fract(uv));
   uv /= n;
   // avgとcolor1とcolor2の間を取得する
-  vec3 col = getMergeColor(uColor1, color2, uAvg);
+  vec3 col = getMergeColor(uColor1, color2, uAvg* power);
   // // Step関数でuAvgより大きいyはcolor1にする
   uv.x *= 2.0;
   int index = int(uv.x);
   vec3[3] xcol3 = vec3[](
     uColor1,
-    col * col,
+    col,
     uColor1
   );
   col = mix(
@@ -51,7 +54,7 @@ void main() {
       fract(uv.x)
     ),
     uColor1,
-    smoothstep(0.0, uAvg, uv.y)
+    smoothstep(0.0, 0.8, uv.y)
   );
   
   gl_FragColor = vec4(col, 1.0);

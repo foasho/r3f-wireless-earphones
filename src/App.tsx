@@ -13,6 +13,7 @@ import { useFingerprintStore } from "./utils/store";
 import { ShaderAudioAnalyzer } from "./canvas/ShaderAudioAnalyzer";
 import { NoiseMusicPlayer } from "./dom/NoiseMusicPlayer";
 import { useControls } from "leva";
+import { Header } from "./dom/Hearder";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className="relative" style={{ height: "100dvh", width: "100dvw" }}>
+      <Header />
       {!fingerprint && <FingerPrint />}
       <ResizeProvider>
         <Scene />
@@ -50,7 +52,7 @@ const Scene = () => {
       <Effects />
       {fingerprint && 
         <ShaderAudioAnalyzer
-          url="/encore-rust.mp3"
+          url="music-light.mp3"
           position={[
             0,
             0,

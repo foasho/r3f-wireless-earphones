@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import vertexShader from "../glsl/audio.vert";
 import fragmentShader from "../glsl/audio.frag";
 import { Color, PointLight, ShaderMaterial } from "three";
-import { useControls } from "leva";
 import { suspend } from "suspend-react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
@@ -32,16 +31,13 @@ export const ShaderAudioAnalyzer = (
     return () => gain.disconnect();
   }, [gain, context]);
 
-  const { color1, color2, volume } = useControls({
-    color1: "#FFFFFF",
-    color2: "#1E2D4A",
-    volume: {
-      value: 0.5,
-      min: 0.0,
-      max: 1.0,
-      step: 0.01
-    },
-  });
+  const color1 = "#FFFFFF";
+
+  const color2 = useMemo(() => {
+    return speakerMode === "noise canceling" ? "#1E2D4A" : "#F0D090";
+  }, [speakerMode]);
+
+  const volume = 0.5;
 
   const shaderMaterial = new ShaderMaterial({
     vertexShader,
@@ -56,7 +52,7 @@ export const ShaderAudioAnalyzer = (
     }
   });
 
-  useFrame((state, delta) => {
+  useFrame((_state, _delta) => {
     if (!ref.current) return;
     let avg = update();
     if (avg > 0.0) {
@@ -64,7 +60,11 @@ export const ShaderAudioAnalyzer = (
       const _a = avg / 225 > 1.0 ? 1.0 : avg / 225;
       shaderMaterial.uniforms.uAvg.value = _a;
       if (pointRef.current){
-        pointRef.current.intensity = _a * 10;
+        pointRef.current.intensity = speakerMode !== "ambient sound" ? _a * 10: 0.0;
+        if (speakerMode !== "ambient sound"){
+          // lerping color
+          pointRef.current.color = new Color(color2).lerp(new Color(color1), _a * 0.5);
+        }
       }
     }
   });
