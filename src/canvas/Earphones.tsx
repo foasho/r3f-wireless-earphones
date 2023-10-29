@@ -1,17 +1,17 @@
 import { useGLTF } from '@react-three/drei';
 import { Suspense } from 'react';
 
-type AirpodsProps = {
+type Earphones = {
   position?: [number, number, number];
   rotation?: [number, number, number];
   scale?: [number, number, number] | number;
 };
-export const Airpods = (
+export const Earphones = (
   { 
     position = [0, 0, 0],
     rotation = [0, 0, 0],
     scale = [1, 1, 1] 
-  }: AirpodsProps
+  }: Earphones
 ) => {
   const { nodes, materials } = useGLTF('/Airpods.glb') as any;
   return (

@@ -1,5 +1,5 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import { Airpods } from "./canvas/Airpods";
+import { Earphones } from "./canvas/Earphones";
 import { Lighting } from "./canvas/Lighting";
 import { Effects } from "./canvas/Effects";
 import { Footer } from "./dom/Footer";
@@ -49,7 +49,7 @@ const Scene = () => {
       <ambientLight intensity={1}/>
       <pointLight position={[3, 3, 3]}/>
       <directionalLight position={[-2, 3, 5]}/>
-      <Airpods scale={0.1} position={[0, 0, -1]} />
+      <Earphones scale={0.1} position={[0, 0, -1]} />
       <Pointer position={[1.2, 0.8, 1]} onClick={upVolume} />
       <Pointer position={[-1.2, 0.8, -0.2]} onClick={downVolume} />
       <Lighting />
