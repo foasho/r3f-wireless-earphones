@@ -34,7 +34,19 @@ export const ShaderAudioAnalyzer = (
   const color1 = "#FFFFFF";
 
   const color2 = useMemo(() => {
-    return speakerMode === "noise canceling" ? "#1E2D4A" : "#F0D090";
+    return speakerMode === "noise canceling" ? "#f0f8ff" : "#00bfff";
+  }, [speakerMode]);
+
+  const ambientSound = useMemo(() => {
+    // ambient sound: 1.0, normal: 0.5, noisecanceling: 0.0
+    switch(speakerMode){
+      case "noise canceling":
+        return 0.0;
+      case "normal":
+        return 0.5;
+      case "ambient sound":
+        return 1.0;
+    }
   }, [speakerMode]);
 
   const volume = 0.5;
@@ -45,9 +57,10 @@ export const ShaderAudioAnalyzer = (
     uniforms: {
       uColor1: { value: new Color(color1) },
       uColor2: { value: new Color(color2) },
-      uDataLength: { value: data.length / 4 },
+      uDataLength: { value: data.length },
+      uDataArray: { value: Array.from(data).map(d => d/255.) },
       uAvg: { value: 0.0 },
-      uAmbientSound: { value: speakerMode === "ambient sound" ? 1.0 : 0.0},
+      uAmbientSound: { value: ambientSound },
       uTex: { value: texture },
     }
   });
@@ -56,6 +69,8 @@ export const ShaderAudioAnalyzer = (
     if (!ref.current) return;
     let avg = update();
     if (avg > 0.0) {
+      const values = Array.from(data).map(d => d/255.);
+      shaderMaterial.uniforms.uDataArray.value = values;
       gain.gain.value = volume;
       const _a = avg / 225 > 1.0 ? 1.0 : avg / 225;
       shaderMaterial.uniforms.uAvg.value = _a;
