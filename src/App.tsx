@@ -20,7 +20,7 @@ function App() {
   const { fingerprint } = useFingerprintStore();
 
   return (
-    <div className="relative" style={{ height: "100dvh", width: "100dvw" }}>
+    <div className="relative h-screen w-screen m-0 p-0">
       <Header />
       <VolumeViewer/>
       {!fingerprint && <FingerPrint />}
