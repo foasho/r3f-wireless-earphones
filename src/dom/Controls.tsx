@@ -21,7 +21,7 @@ export const Controls = () => {
   return (
     <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-full text-center">
       <div className="w-full text-center mb-3">
-        <span className="text-2xl font-bold md:text-4xl select-none">
+        <span className="text-2xl font-bold md:text-4xl select-none text-gray-800">
           {getSpeakerModeText(speakerMode)}
         </span>
       </div>
