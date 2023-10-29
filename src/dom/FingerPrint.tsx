@@ -10,7 +10,7 @@ export const FingerPrint = () => {
       <div className="w-full h-full justify-center items-center flex">
         <div className="text-center items-center">
           <div className="w-full text-center">
-            <span className="text-2xl">
+            <span className="text-2xl text-gray-800">
               Tap to Play
             </span>
           </div>
@@ -23,7 +23,7 @@ export const FingerPrint = () => {
               }
             }}
           >
-            <HiFingerPrint className="w-32 h-32" />
+            <HiFingerPrint className="w-32 h-32 text-gray-800" />
           </span>
         </div>
       </div>
