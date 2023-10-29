@@ -1,11 +1,17 @@
 import { create } from 'zustand';
 
 interface State {
+  volume: number;
+  downVolume: () => void;
+  upVolume: () => void;
   speakerMode: "noise canceling" | "ambient sound" | "normal";
   changeSpeakerMode: (mode: "noise canceling" | "ambient sound" | "normal") => void;
 };
 
 export const useStore = create<State>((set) => ({
+  volume: 0.5,
+  downVolume: () => set((state) => ({ volume: (state.volume - 0.1) < 0 ? 0 : state.volume - 0.1 })),
+  upVolume: () => set((state) => ({ volume: (state.volume + 0.1) > 1 ? 1 : state.volume + 0.1 })),
   speakerMode: "noise canceling",
   changeSpeakerMode: (mode) => set({ speakerMode: mode }),
 }));

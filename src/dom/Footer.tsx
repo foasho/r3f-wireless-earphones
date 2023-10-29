@@ -3,7 +3,7 @@
 export const Footer = () => {
   return (
     <div className="absolute bottom-4 right-4">
-      <p>
+      <p className="select-none">
         <span className="pr-2 font-bold text-xl">
           「カナリアスキップ」
         </span>

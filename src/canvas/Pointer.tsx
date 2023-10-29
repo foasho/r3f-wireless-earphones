@@ -7,12 +7,14 @@ type PointerProps = {
   position: [number, number, number];
   color?: string;
   hoverColor?: string;
+  onClick?: () => void;
 };
 export const Pointer = (
   { 
     position,
     color = "#f0f8ff",
-    hoverColor = "#00bfff"
+    hoverColor = "#00bfff",
+    onClick = () => {}
   }: PointerProps
 ) => {
 
@@ -39,6 +41,7 @@ export const Pointer = (
   return (
     <group
       position={position}
+      onClick={onClick}
     >
       <mesh
         onPointerOver={() => setOnHovered(true)}

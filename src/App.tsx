@@ -9,12 +9,13 @@ import { useEffect } from "react";
 import { PerspectiveCamera } from "three";
 import { Controls } from "./dom/Controls";
 import { FingerPrint } from "./dom/FingerPrint";
-import { useFingerprintStore } from "./utils/store";
+import { useFingerprintStore, useStore } from "./utils/store";
 import { ShaderAudioAnalyzer } from "./canvas/ShaderAudioAnalyzer";
 import { NoiseMusicPlayer } from "./dom/NoiseMusicPlayer";
 import { useControls } from "leva";
 import { Header } from "./dom/Hearder";
 import { Pointer } from "./canvas/Pointer";
+import { VolumeViewer } from "./dom/VolumeViewer";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
   return (
     <div className="relative" style={{ height: "100dvh", width: "100dvw" }}>
       <Header />
+      <VolumeViewer/>
       {!fingerprint && <FingerPrint />}
       <ResizeProvider>
         <Scene />
@@ -36,6 +38,7 @@ function App() {
 
 const Scene = () => {
 
+  const { downVolume, upVolume } = useStore();
   const { fingerprint } = useFingerprintStore();
 
   return (
@@ -49,8 +52,8 @@ const Scene = () => {
       <pointLight position={[3, 3, 3]}/>
       <directionalLight position={[-2, 3, 5]}/>
       <Airpods scale={0.1} position={[0, 0, -1]} />
-      <Pointer position={[1.2, 0.8, 1]} />
-      <Pointer position={[-1.2, 0.8, -0.2]} />
+      <Pointer position={[1.2, 0.8, 1]} onClick={upVolume} />
+      <Pointer position={[-1.2, 0.8, -0.2]} onClick={downVolume} />
       <Lighting />
       <Effects />
       {fingerprint && 

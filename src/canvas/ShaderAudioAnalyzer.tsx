@@ -19,7 +19,7 @@ export const ShaderAudioAnalyzer = (
 ) => {
   const ref = useRef<ShaderMaterial>(null);
   const pointRef = useRef<PointLight>(null);
-  const { speakerMode } = useStore();
+  const { speakerMode, volume } = useStore();
   const texture = useTexture("cafe-tiny.jpg");
   
   const viewport = useThree((state) => state.viewport);
@@ -48,8 +48,6 @@ export const ShaderAudioAnalyzer = (
         return 1.0;
     }
   }, [speakerMode]);
-
-  const volume = 0.5;
 
   const shaderMaterial = new ShaderMaterial({
     vertexShader,
