@@ -10,7 +10,7 @@ export const Header = () => {
             <img src="/logo.jpg" className="w-8 h-8 rounded-full" />
           </div>
           <span className="pl-2 text-2xl font-bold md:text-4xl">
-            Airpods Pro
+            Earphones
           </span>
         </div>
         <div className="flex items-center">

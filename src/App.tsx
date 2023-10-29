@@ -14,6 +14,7 @@ import { ShaderAudioAnalyzer } from "./canvas/ShaderAudioAnalyzer";
 import { NoiseMusicPlayer } from "./dom/NoiseMusicPlayer";
 import { useControls } from "leva";
 import { Header } from "./dom/Hearder";
+import { Pointer } from "./canvas/Pointer";
 
 function App() {
 
@@ -48,6 +49,8 @@ const Scene = () => {
       <pointLight position={[3, 3, 3]}/>
       <directionalLight position={[-2, 3, 5]}/>
       <Airpods scale={0.1} position={[0, 0, -1]} />
+      <Pointer position={[1.2, 0.8, 1]} />
+      <Pointer position={[-1.2, 0.8, -0.2]} />
       <Lighting />
       <Effects />
       {fingerprint && 

@@ -158,7 +158,7 @@ void main() {
       mergedColor = getChangeHueColor(color2, pow(v, power), mergedVal);
     }
     else if (uAmbientSound == 1.0){
-      mergedColor = getMergeColor(color1, color2, pow(v, mergedVal));
+      mergedColor = getMergeColor(color1, color2, (v * v * power/1.5));
     }
     else {
       // 見た目よくするために、固定でmergedValを指定

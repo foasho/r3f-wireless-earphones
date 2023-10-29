@@ -75,11 +75,7 @@ export const ShaderAudioAnalyzer = (
       const _a = avg / 225 > 1.0 ? 1.0 : avg / 225;
       shaderMaterial.uniforms.uAvg.value = _a;
       if (pointRef.current){
-        pointRef.current.intensity = speakerMode !== "ambient sound" ? _a * 10: 0.0;
-        if (speakerMode !== "ambient sound"){
-          // lerping color
-          pointRef.current.color = new Color(color2).lerp(new Color(color1), _a * 0.5);
-        }
+        pointRef.current.intensity = _a * 10;
       }
     }
   });
@@ -98,16 +94,19 @@ export const ShaderAudioAnalyzer = (
         <pointLight 
           ref={pointRef}
           castShadow 
-          intensity={3} 
-          position={[0.1, -1.5, 1.5]} 
-          color={color1} 
+          intensity={5} 
+          position={[0, 0.5, 0]} 
+          color={speakerMode !== "ambient sound" ? color2 : "#FFFFFF"} 
         />
         <mesh receiveShadow position={[0, 0, 0.01]}>
           <planeGeometry args={[viewport.width, viewport.height, 1]} />
           <meshStandardMaterial 
-            color={color1} 
+            color={
+              speakerMode !== "ambient sound" ? color2 : "#000000"
+            } 
             transparent
-            opacity={0.2}
+            opacity={0.25}
+            roughness={1.0}
           />
         </mesh>
       </group>
