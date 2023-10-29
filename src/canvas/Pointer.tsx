@@ -33,7 +33,7 @@ export const Pointer = (
 
   useCursor(onHovered);
 
-  useFrame((state, delta) => {
+  useFrame((state, _delta) => {
     const time = state.clock.getElapsedTime();
     if (ringRef.current){
       ringRef.current.scale.set(

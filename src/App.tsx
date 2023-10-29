@@ -1,5 +1,4 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import { Airpods } from "./canvas/Airpods";
 import { Lighting } from "./canvas/Lighting";
 import { Effects } from "./canvas/Effects";
@@ -12,7 +11,6 @@ import { FingerPrint } from "./dom/FingerPrint";
 import { useFingerprintStore, useStore } from "./utils/store";
 import { ShaderAudioAnalyzer } from "./canvas/ShaderAudioAnalyzer";
 import { NoiseMusicPlayer } from "./dom/NoiseMusicPlayer";
-import { useControls } from "leva";
 import { Header } from "./dom/Hearder";
 import { Pointer } from "./canvas/Pointer";
 import { VolumeViewer } from "./dom/VolumeViewer";
@@ -68,7 +66,6 @@ const Scene = () => {
         />
       }
       <Monitor />
-      {/* <Debug /> */}
     </Canvas>
   )
 }
@@ -88,22 +85,5 @@ const Monitor = () => {
 
   return <></>
 }
-
-const Debug = () => {
-  const { orbit, gizmo } = useControls({
-    orbit: false,
-    gizmo: false
-  });
-  return (
-    <>
-      {orbit && <OrbitControls/>}
-      {gizmo && 
-        <GizmoHelper alignment="top-left" margin={[75, 75]}>
-          <GizmoViewport labelColor="white" axisHeadScale={1} />
-        </GizmoHelper>
-      }
-    </>
-  )
-};
 
 export default App
